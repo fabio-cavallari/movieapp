@@ -1,11 +1,17 @@
 package com.example.movieapp.model
 
+import com.example.movieapp.data.dto.MovieDto
+
 data class Movie(
     val title: String,
     val date: String,
     val poster: String,
     val rate: String
 )
+
+fun MovieDto.asDomainModel() = Movie(title, date, poster, rate)
+
+fun List<MovieDto>.asDomainModel() = map { it.asDomainModel() }
 
 val movieSample = Movie(
     title = "Inside Out 2",
