@@ -12,12 +12,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class MovieListViewModel: ViewModel() {
-    val repository: MovieListRepository = MovieRepositoryImpl()
+    private val repository: MovieListRepository = MovieRepositoryImpl()
 
     private val _uiState: MutableStateFlow<HomeScreenUiState> = MutableStateFlow(HomeScreenUiState())
     val uiState: StateFlow<HomeScreenUiState> = _uiState
 
-    suspend fun getMovieList(page: Int) {
+    init {
+        getMovieList(page = 1)
+    }
+    fun getMovieList(page: Int) {
         viewModelScope.launch {
             val homeScreenUiState = _uiState.value
             _uiState.value = homeScreenUiState.copy(uiState = homeScreenUiState.getLoadingState())

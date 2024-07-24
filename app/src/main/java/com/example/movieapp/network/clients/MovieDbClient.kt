@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MovieDbClient {
-    @GET("/discover/movie")
+    @GET("/3/discover/movie")
     suspend fun getMovieList(
         @Query("page") page: Int
     ): Response<MovieResponseDto>

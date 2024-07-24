@@ -18,11 +18,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.movieapp.R
 import com.example.movieapp.model.movieListSample
 import com.example.movieapp.ui.screens.HomeScreen
-import com.example.movieapp.ui.states.HomeScreenUiState
 import com.example.movieapp.ui.theme.MovieAppTheme
+import com.example.movieapp.viewmodels.MovieListViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +31,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             App {
-                HomeScreen(uiState = HomeScreenUiState(movieListSample))
+                val viewModel: MovieListViewModel = viewModel()
+                HomeScreen(viewModel)
             }
         }
     }
@@ -70,6 +72,6 @@ fun App(content: @Composable () -> Unit = {}) {
 @Composable
 private fun AppPreview() {
     App {
-        HomeScreen(uiState = HomeScreenUiState(movieListSample))
+        HomeScreen(movieList = movieListSample)
     }
 }
