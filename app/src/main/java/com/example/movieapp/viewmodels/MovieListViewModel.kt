@@ -26,11 +26,12 @@ class MovieListViewModel : ViewModel() {
 
     fun getMovieList() {
         viewModelScope.launch {
-            delay(2000)
             val homeScreenUiState = _uiState.value
             if (homeScreenUiState.page == 0) {
                 _uiState.value = homeScreenUiState.copy(uiState = UiState.LOADING)
             }
+            //this delay is just for giving enough time to show progress bar animations
+            delay(2000)
             val result = repository.getMovieList(homeScreenUiState.page + 1)
             if (result is Result.Success) {
                 val movieResponse = result.data
@@ -55,5 +56,10 @@ class MovieListViewModel : ViewModel() {
             UiState.PAGING
         }
 
+    }
+
+    fun onPagingTryAgainClick() {
+        val homeScreenUiState = _uiState.value
+        _uiState.value = homeScreenUiState.copy(uiState = UiState.PAGING)
     }
 }

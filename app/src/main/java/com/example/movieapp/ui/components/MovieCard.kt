@@ -58,7 +58,8 @@ fun MovieCard(movie: Movie) {
                     model = "https://image.tmdb.org/t/p/original${movie.poster}",
                     contentDescription = null,
                     contentScale = ContentScale.Fit,
-                    placeholder = painterResource(id = R.drawable.placeholder)
+                    placeholder = painterResource(id = R.drawable.placeholder),
+                    error = painterResource(id = R.drawable.placeholder)
                 )
             }
             Column(

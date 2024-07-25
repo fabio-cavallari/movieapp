@@ -34,19 +34,34 @@ import com.example.movieapp.viewmodels.MovieListViewModel
 @Composable
 fun HomeScreen(viewModel: MovieListViewModel) {
     val uiState by viewModel.uiState.collectAsState()
-    HomeScreen(uiState.uiState, uiState.movieList, viewModel::getMovieList)
-
+    HomeScreen(uiState.uiState, uiState.movieList, viewModel::getMovieList, viewModel::onPagingTryAgainClick)
 }
 
 @Composable
 fun HomeScreen(
     uiState: UiState = UiState.SUCCESS,
     movieList: LinkedHashSet<Movie> = linkedSetOf(),
-    getMovieList: () -> Unit = {}
+    getMovieList: () -> Unit = {},
+    onPagingTryAgain: () -> Unit = {}
 ) {
     when (uiState) {
         UiState.ERROR -> {
-            Text(text = "error case")
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Button(
+                    onClick = getMovieList
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Refresh,
+                        contentDescription = "refresh"
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(text = "try again")
+                }
+            }
         }
 
         UiState.LOADING -> {
@@ -102,7 +117,7 @@ fun HomeScreen(
                                 contentAlignment = Alignment.Center
                             ) {
                                 Button(
-                                    onClick = { /*TODO*/ }
+                                    onClick = onPagingTryAgain
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Refresh,
@@ -113,9 +128,7 @@ fun HomeScreen(
                                 }
                             }
                         }
-                        else -> {
-
-                        }
+                        else -> {}
                     }
                 }
             }
