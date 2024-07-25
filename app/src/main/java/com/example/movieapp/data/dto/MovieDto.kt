@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class MovieDto(
+    @JsonProperty("id") val id: String,
     @JsonProperty("title") val title: String,
     @JsonProperty("poster_path") val poster: String,
     @JsonProperty("release_date") val date: String,

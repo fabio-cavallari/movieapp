@@ -3,17 +3,19 @@ package com.example.movieapp.model
 import com.example.movieapp.data.dto.MovieDto
 
 data class Movie(
+    val id: String,
     val title: String,
     val date: String,
     val poster: String,
     val rate: String
 )
 
-fun MovieDto.asDomainModel() = Movie(title, date, poster, rate)
+fun MovieDto.asDomainModel() = Movie(id, title, date, poster, rate)
 
 fun List<MovieDto>.asDomainModel() = map { it.asDomainModel() }
 
 val movieSample = Movie(
+    id = "1",
     title = "Inside Out 2",
     date = "2024-06-11",
     rate = "7.645",
@@ -21,6 +23,7 @@ val movieSample = Movie(
 )
 
 val movieSample2 = Movie(
+    id = "2",
     title = "Furiosa: A Mad Max Saga",
     date = "2024-06-11",
     rate = "7.645",
@@ -28,10 +31,11 @@ val movieSample2 = Movie(
 )
 
 val movieSample3 = Movie(
+    id = "3",
     title = "Kingdom of the Planet of the Apes",
     date = "2024-06-11",
     rate = "7.645",
     poster = "/gKkl37BQuKTanygYQG1pyYgLVgf.jpg"
 )
 
-val movieListSample = listOf(movieSample, movieSample2, movieSample3, movieSample, movieSample2, movieSample3)
+val movieListSample = linkedSetOf(movieSample, movieSample2, movieSample3, movieSample, movieSample2, movieSample3)

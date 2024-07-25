@@ -8,21 +8,14 @@ enum class UiState {
     SUCCESS,
     ERROR,
     PAGING_ERROR,
-    PAGING_LOADING
+    PAGING
 }
 
 data class HomeScreenUiState(
     val page: Int = 0,
-    val movieList: List<Movie> = listOf(),
+    val movieList: LinkedHashSet<Movie> = linkedSetOf(),
     val uiState: UiState = UiState.LOADING
 ) {
-    fun getLoadingState(): UiState {
-        return if (page > 1) {
-            UiState.PAGING_LOADING
-        } else {
-            UiState.LOADING
-        }
-    }
 
     fun getErrorState(): UiState {
         return if (page > 1) {
