@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.movieapp.R
 import com.example.movieapp.model.movieListSample
 import com.example.movieapp.screens.HomeScreen
@@ -26,6 +25,8 @@ import com.example.movieapp.states.HomeScreenUiState
 import com.example.movieapp.states.UiState
 import com.example.movieapp.ui.theme.MovieAppTheme
 import com.example.movieapp.viewmodels.MovieListViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +34,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             App {
-                val viewModel: MovieListViewModel = viewModel()
+                val viewModel: MovieListViewModel by viewModel()
                 HomeScreen(viewModel)
             }
         }

@@ -7,7 +7,6 @@ import com.example.movieapp.HomeIntent.GetMovieList
 import com.example.movieapp.HomeIntent.PagingTryAgain
 import com.example.movieapp.data.Result
 import com.example.movieapp.data.repositories.MovieListRepository
-import com.example.movieapp.data.repositories.MovieRepositoryImpl
 import com.example.movieapp.model.MovieResponse
 import com.example.movieapp.states.HomeScreenUiState
 import com.example.movieapp.states.UiState
@@ -16,8 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class MovieListViewModel : ViewModel() {
-    private val repository: MovieListRepository = MovieRepositoryImpl()
+class MovieListViewModel(private val repository: MovieListRepository) : ViewModel() {
 
     private val _state: MutableStateFlow<HomeScreenUiState> =
         MutableStateFlow(HomeScreenUiState())

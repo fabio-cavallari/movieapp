@@ -8,7 +8,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
-class MovieDbRemoteProviderImpl(): MovieDbRemoteProvider {
+class MovieDbRemoteProviderImpl: MovieDbRemoteProvider {
 
     private val baseClient = OkHttpClient.Builder()
         .addInterceptor { chain ->

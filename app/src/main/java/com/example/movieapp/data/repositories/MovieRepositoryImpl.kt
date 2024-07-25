@@ -4,10 +4,9 @@ import com.example.movieapp.data.Result
 import com.example.movieapp.model.MovieResponse
 import com.example.movieapp.model.asDomainModel
 import com.example.movieapp.network.remoteproviders.MovieDbRemoteProvider
-import com.example.movieapp.network.remoteproviders.MovieDbRemoteProviderImpl
 
-class MovieRepositoryImpl() : MovieListRepository {
-    private val remoteProvider: MovieDbRemoteProvider = MovieDbRemoteProviderImpl()
+class MovieRepositoryImpl(private val remoteProvider: MovieDbRemoteProvider) : MovieListRepository {
+
     override suspend fun getMovieList(page: Int): Result<MovieResponse> {
         val response = remoteProvider.getMovieList(page)
         if (response.second != null) {
