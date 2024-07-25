@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.states
+package com.example.movieapp.states
 
 import com.example.movieapp.model.Movie
 

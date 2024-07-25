@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.activities
+package com.example.movieapp.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -21,7 +21,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.movieapp.R
 import com.example.movieapp.model.movieListSample
-import com.example.movieapp.ui.screens.HomeScreen
+import com.example.movieapp.screens.HomeScreen
+import com.example.movieapp.states.HomeScreenUiState
+import com.example.movieapp.states.UiState
 import com.example.movieapp.ui.theme.MovieAppTheme
 import com.example.movieapp.viewmodels.MovieListViewModel
 
@@ -72,6 +74,8 @@ fun App(content: @Composable () -> Unit = {}) {
 @Composable
 private fun AppPreview() {
     App {
-        HomeScreen(movieList = movieListSample)
+        val homeScreenUiState =
+            HomeScreenUiState(movieList = movieListSample, uiState = UiState.SUCCESS)
+        HomeScreen(homeScreenUiState)
     }
 }

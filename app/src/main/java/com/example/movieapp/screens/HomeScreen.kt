@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.screens
+package com.example.movieapp.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,26 +25,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.movieapp.model.Movie
+import com.example.movieapp.HomeIntent
+import com.example.movieapp.components.MovieCard
 import com.example.movieapp.model.movieListSample
-import com.example.movieapp.ui.components.MovieCard
-import com.example.movieapp.ui.states.UiState
+import com.example.movieapp.states.HomeScreenUiState
+import com.example.movieapp.states.UiState
 import com.example.movieapp.viewmodels.MovieListViewModel
 
 @Composable
 fun HomeScreen(viewModel: MovieListViewModel) {
-    val uiState by viewModel.uiState.collectAsState()
-    HomeScreen(uiState.uiState, uiState.movieList, viewModel::getMovieList, viewModel::onPagingTryAgainClick)
+    val state by viewModel.state.collectAsState()
+    HomeScreen(state, viewModel::onIntent)
 }
 
 @Composable
 fun HomeScreen(
-    uiState: UiState = UiState.SUCCESS,
-    movieList: LinkedHashSet<Movie> = linkedSetOf(),
-    getMovieList: () -> Unit = {},
-    onPagingTryAgain: () -> Unit = {}
+    state: HomeScreenUiState,
+    onIntent: (HomeIntent) -> Unit = {}
 ) {
-    when (uiState) {
+    when (state.uiState) {
         UiState.ERROR -> {
             Box(
                 modifier = Modifier
@@ -52,7 +51,7 @@ fun HomeScreen(
                 contentAlignment = Alignment.Center
             ) {
                 Button(
-                    onClick = getMovieList
+                    onClick = { onIntent(HomeIntent.GetMovieList) }
                 ) {
                     Icon(
                         imageVector = Icons.Default.Refresh,
@@ -85,13 +84,13 @@ fun HomeScreen(
 
             ) {
                 items(
-                    items = movieList.toList(),
+                    items = state.movieList.toList(),
                     key = { it.id },
                 ) { movie ->
                     MovieCard(movie)
                 }
                 item {
-                    when(uiState) {
+                    when (state.uiState) {
                         UiState.PAGING -> {
                             Box(
                                 modifier = Modifier
@@ -104,11 +103,12 @@ fun HomeScreen(
                                     color = MaterialTheme.colorScheme.primary
                                 )
                                 LaunchedEffect(Unit) {
-                                    getMovieList()
+                                    onIntent(HomeIntent.GetMovieList)
                                 }
                             }
 
                         }
+
                         UiState.PAGING_ERROR -> {
                             Box(
                                 modifier = Modifier
@@ -117,7 +117,7 @@ fun HomeScreen(
                                 contentAlignment = Alignment.Center
                             ) {
                                 Button(
-                                    onClick = onPagingTryAgain
+                                    onClick = { onIntent(HomeIntent.PagingTryAgain) }
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Refresh,
@@ -128,6 +128,7 @@ fun HomeScreen(
                                 }
                             }
                         }
+
                         else -> {}
                     }
                 }
@@ -140,17 +141,23 @@ fun HomeScreen(
 @Preview(showSystemUi = true)
 @Composable
 private fun HomeScreenSuccessPreview() {
-    HomeScreen(movieList = movieListSample)
+    val homeScreenUiState =
+        HomeScreenUiState(movieList = movieListSample, uiState = UiState.SUCCESS)
+    HomeScreen(homeScreenUiState)
 }
 
 @Preview(showSystemUi = true)
 @Composable
 private fun HomeScreenLoadingPreview() {
-    HomeScreen(UiState.LOADING)
+    val homeScreenUiState =
+        HomeScreenUiState(movieList = movieListSample, uiState = UiState.LOADING)
+    HomeScreen(homeScreenUiState)
 }
 
 @Preview(showSystemUi = true)
 @Composable
 private fun HomeScreenErrorPreview() {
-    HomeScreen(UiState.ERROR)
+    val homeScreenUiState =
+        HomeScreenUiState(movieList = movieListSample, uiState = UiState.ERROR)
+    HomeScreen(homeScreenUiState)
 }
