@@ -30,7 +30,11 @@ class MovieDbRemoteProviderImpl(): MovieDbRemoteProvider {
 
     private val client = retrofit.create(MovieDbClient::class.java)
 
-    override suspend fun getMovieList(page: Int): Response<MovieResponseDto> {
-        return client.getMovieList(page)
+    override suspend fun getMovieList(page: Int): Pair<Response<MovieResponseDto>?, Exception?> {
+        return try {
+            Pair(client.getMovieList(page), null)
+        } catch (e: Exception) {
+            Pair(null, e)
+        }
     }
 }

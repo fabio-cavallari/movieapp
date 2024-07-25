@@ -29,7 +29,7 @@ class MovieListViewModel : ViewModel() {
             delay(2000)
             val homeScreenUiState = _uiState.value
             if (homeScreenUiState.page == 0) {
-                _uiState.value = homeScreenUiState.copy(uiState = UiState.PAGING)
+                _uiState.value = homeScreenUiState.copy(uiState = UiState.LOADING)
             }
             val result = repository.getMovieList(homeScreenUiState.page + 1)
             if (result is Result.Success) {

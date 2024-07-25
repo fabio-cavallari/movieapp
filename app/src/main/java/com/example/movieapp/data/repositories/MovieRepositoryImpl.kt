@@ -6,18 +6,25 @@ import com.example.movieapp.model.asDomainModel
 import com.example.movieapp.network.remoteproviders.MovieDbRemoteProvider
 import com.example.movieapp.network.remoteproviders.MovieDbRemoteProviderImpl
 
-class MovieRepositoryImpl(): MovieListRepository {
+class MovieRepositoryImpl() : MovieListRepository {
     private val remoteProvider: MovieDbRemoteProvider = MovieDbRemoteProviderImpl()
     override suspend fun getMovieList(page: Int): Result<MovieResponse> {
         val response = remoteProvider.getMovieList(page)
-        return if (response.isSuccessful && response.body() != null) {
-            val movieResponse = response.body()!!.asDomainModel()
-            Result.Success(movieResponse)
-        } else {
-            Result.Error(
-                message = response.message(),
-                errorCode = response.code().toString()
-            )
+        if (response.second != null) {
+            return Result.Error(response.second!!.message, null)
         }
+        if (response.first != null) {
+            val retrofitResponse = response.first!!
+            return if (retrofitResponse.isSuccessful && retrofitResponse.body() != null) {
+                val movieResponse = retrofitResponse.body()!!.asDomainModel()
+                Result.Success(movieResponse)
+            } else {
+                Result.Error(
+                    message = retrofitResponse.message(),
+                    errorCode = retrofitResponse.code().toString()
+                )
+            }
+        }
+        return Result.Error()
     }
 }
