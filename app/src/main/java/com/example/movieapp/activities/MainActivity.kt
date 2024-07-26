@@ -24,8 +24,6 @@ import com.example.movieapp.screens.HomeScreen
 import com.example.movieapp.states.HomeScreenUiState
 import com.example.movieapp.states.UiState
 import com.example.movieapp.ui.theme.MovieAppTheme
-import com.example.movieapp.viewmodels.MovieListViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -34,8 +32,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             App {
-                val viewModel: MovieListViewModel by viewModel()
-                HomeScreen(viewModel)
+                HomeScreen()
             }
         }
     }

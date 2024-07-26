@@ -2,11 +2,11 @@ package com.example.movieapp.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapp.HomeIntent
-import com.example.movieapp.HomeIntent.GetMovieList
-import com.example.movieapp.HomeIntent.PagingTryAgain
 import com.example.movieapp.data.Result
 import com.example.movieapp.data.repositories.MovieListRepository
+import com.example.movieapp.intents.HomeIntent
+import com.example.movieapp.intents.HomeIntent.GetMovieList
+import com.example.movieapp.intents.HomeIntent.PagingTryAgain
 import com.example.movieapp.model.MovieResponse
 import com.example.movieapp.states.HomeScreenUiState
 import com.example.movieapp.states.UiState
