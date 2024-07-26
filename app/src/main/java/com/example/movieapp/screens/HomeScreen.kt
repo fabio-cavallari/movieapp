@@ -33,16 +33,16 @@ import com.example.movieapp.model.movieListSample
 import com.example.movieapp.navigation.navigateToMovieDetail
 import com.example.movieapp.states.HomeScreenUiState
 import com.example.movieapp.states.UiState
-import com.example.movieapp.viewmodels.MovieListViewModel
+import com.example.movieapp.viewmodels.HomeScreenViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(navHostController: NavHostController, viewModel: MovieListViewModel = koinViewModel()) {
+fun HomeScreen(navHostController: NavHostController, viewModel: HomeScreenViewModel = koinViewModel()) {
     val state by viewModel.state.collectAsState()
     HomeScreen(state) { homeIntent ->
         when (homeIntent) {
             is GoToMovieDetail -> {
-                navHostController.navigateToMovieDetail(homeIntent.movie)
+                navHostController.navigateToMovieDetail(homeIntent.movie.id)
             }
             else -> viewModel.onIntent(homeIntent)
         }

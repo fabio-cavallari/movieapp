@@ -5,7 +5,7 @@ import com.example.movieapp.data.repositories.MovieRepositoryImpl
 import com.example.movieapp.network.clients.MovieDbClient
 import com.example.movieapp.network.remoteproviders.MovieDbRemoteProvider
 import com.example.movieapp.network.remoteproviders.MovieDbRemoteProviderImpl
-import com.example.movieapp.viewmodels.MovieListViewModel
+import com.example.movieapp.viewmodels.HomeScreenViewModel
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -20,7 +20,7 @@ object AppModule {
     val modules = module {
         factoryOf(::MovieDbRemoteProviderImpl) { bind<MovieDbRemoteProvider>() }
         factoryOf(::MovieRepositoryImpl) { bind<MovieListRepository>() }
-        viewModelOf(::MovieListViewModel)
+        viewModelOf(::HomeScreenViewModel)
 
         factory<OkHttpClient> {params ->
             val headers = params.get<Map<String, String>>()

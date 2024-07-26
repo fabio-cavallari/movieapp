@@ -15,8 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class MovieListViewModel(private val repository: MovieListRepository) : ViewModel() {
-
+class HomeScreenViewModel(private val repository: MovieListRepository) : ViewModel() {
     private val _state: MutableStateFlow<HomeScreenUiState> =
         MutableStateFlow(HomeScreenUiState())
     val state: StateFlow<HomeScreenUiState> = _state

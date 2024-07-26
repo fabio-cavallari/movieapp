@@ -9,7 +9,7 @@ data class Movie(
     val poster: String,
     val rate: String
 ) {
-    //there were some cases where the api returns the same movie twice but with different rate 
+    //there were some cases where the api returns the same movie twice but with different rate
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Movie) return false
