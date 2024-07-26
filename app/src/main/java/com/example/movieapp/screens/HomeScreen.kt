@@ -25,18 +25,29 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.movieapp.components.MovieCard
 import com.example.movieapp.intents.HomeIntent
+import com.example.movieapp.intents.HomeIntent.GoToMovieDetail
 import com.example.movieapp.model.movieListSample
+import com.example.movieapp.navigation.navigateToMovieDetail
 import com.example.movieapp.states.HomeScreenUiState
 import com.example.movieapp.states.UiState
 import com.example.movieapp.viewmodels.MovieListViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(viewModel: MovieListViewModel = koinViewModel()) {
+fun HomeScreen(navHostController: NavHostController, viewModel: MovieListViewModel = koinViewModel()) {
     val state by viewModel.state.collectAsState()
-    HomeScreen(state, viewModel::onIntent)
+    HomeScreen(state) { homeIntent ->
+        when (homeIntent) {
+            is GoToMovieDetail -> {
+                navHostController.navigateToMovieDetail(homeIntent.movie)
+            }
+            else -> viewModel.onIntent(homeIntent)
+        }
+
+    }
 }
 
 @Composable
@@ -88,7 +99,9 @@ fun HomeScreen(
                     items = state.movieList.toList(),
                     key = { it.id },
                 ) { movie ->
-                    MovieCard(movie)
+                    MovieCard(movie) {
+                        onIntent(GoToMovieDetail(movie))
+                    }
                 }
                 item {
                     when (state.uiState) {

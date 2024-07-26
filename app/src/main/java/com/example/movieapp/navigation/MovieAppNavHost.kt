@@ -12,9 +12,7 @@ fun MovieAppNavHost(navController: NavHostController) {
         navController = navController,
         startDestination = homeScreenRoute
     ) {
-        homeScreen { movie ->
-            navController.navigateToMovieDetail(movie)
-        }
+        homeScreen(navController)
         movieDetail()
     }
 }

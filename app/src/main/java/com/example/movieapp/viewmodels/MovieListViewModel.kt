@@ -53,6 +53,7 @@ class MovieListViewModel(private val repository: MovieListRepository) : ViewMode
         when (homeIntent) {
             GetMovieList -> getMovieList()
             PagingTryAgain -> onPagingTryAgainClick()
+            else -> {}
         }
     }
 

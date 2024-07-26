@@ -9,20 +9,25 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.R
-import com.example.movieapp.model.movieListSample
-import com.example.movieapp.screens.HomeScreen
-import com.example.movieapp.states.HomeScreenUiState
-import com.example.movieapp.states.UiState
+import com.example.movieapp.navigation.MovieAppNavHost
+import com.example.movieapp.navigation.homeScreenRoute
 import com.example.movieapp.ui.theme.MovieAppTheme
 
 
@@ -31,20 +36,21 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            App {
-                HomeScreen()
-            }
+            val navController = rememberNavController()
+            App(navController = navController)
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun App(content: @Composable () -> Unit = {}) {
+fun App(navController: NavHostController) {
     MovieAppTheme {
         Surface {
             Scaffold(
                 topBar = {
+                    val backStackEntry by navController.currentBackStackEntryAsState()
+                    val canNavigateBack = backStackEntry?.destination?.route != homeScreenRoute
                     CenterAlignedTopAppBar(
                         title = {
                             Row(
@@ -55,25 +61,36 @@ fun App(content: @Composable () -> Unit = {}) {
                                     text = stringResource(id = R.string.app_name),
                                 )
                             }
-                        },)
+                        },
+                        navigationIcon = {
+                            if (canNavigateBack) {
+                                IconButton(onClick = { navController.popBackStack() }) {
+                                    Icon(
+                                        imageVector = Icons.Default.ArrowBack,
+                                        contentDescription = "goBack"
+                                    )
+                                }
+                            }
+                        }
+                    )
                 }
             ) { paddingValues ->
                 Box(
                     Modifier.padding(paddingValues)
                 ) {
-                    content()
+                    MovieAppNavHost(navController = navController)
                 }
             }
         }
     }
 }
 
-@Preview(showSystemUi = true)
-@Composable
-private fun AppPreview() {
-    App {
-        val homeScreenUiState =
-            HomeScreenUiState(movieList = movieListSample, uiState = UiState.SUCCESS)
-        HomeScreen(homeScreenUiState)
-    }
-}
+//@Preview(showSystemUi = true)
+//@Composable
+//private fun AppPreview() {
+//    App {
+//        val homeScreenUiState =
+//            HomeScreenUiState(movieList = movieListSample, uiState = UiState.SUCCESS)
+//        HomeScreen(homeScreenUiState)
+//    }
+//}

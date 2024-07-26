@@ -2,6 +2,7 @@ package com.example.movieapp.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -34,12 +35,13 @@ import com.example.movieapp.model.Movie
 import com.example.movieapp.model.movieSample2
 
 @Composable
-fun MovieCard(movie: Movie) {
+fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
     Card(
         Modifier
             .height(200.dp)
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
+            .clickable { onMovieClick(movie) },
         elevation = CardDefaults.cardElevation(8.dp),
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
