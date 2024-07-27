@@ -1,7 +1,5 @@
 package com.example.movieapp.model
 
-import com.example.movieapp.data.dto.MovieDto
-
 data class Movie(
     val id: String,
     val title: String,
@@ -19,10 +17,6 @@ data class Movie(
         return id.hashCode()
     }
 }
-
-fun MovieDto.asDomainModel() = Movie(id, title, date, poster, rate)
-
-fun List<MovieDto>.asDomainModel() = map { it.asDomainModel() }
 
 val movieSample = Movie(
     id = "1",

@@ -1,7 +1,7 @@
 package com.example.movieapp.di
 
 import com.example.movieapp.data.repositories.MovieListRepository
-import com.example.movieapp.data.repositories.MovieRepositoryImpl
+import com.example.movieapp.data.repositories.MovieListRepositoryImpl
 import com.example.movieapp.network.clients.MovieDbClient
 import com.example.movieapp.network.remoteproviders.MovieDbRemoteProvider
 import com.example.movieapp.network.remoteproviders.MovieDbRemoteProviderImpl
@@ -19,7 +19,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory
 object AppModule {
     val modules = module {
         factoryOf(::MovieDbRemoteProviderImpl) { bind<MovieDbRemoteProvider>() }
-        factoryOf(::MovieRepositoryImpl) { bind<MovieListRepository>() }
+        factoryOf(::MovieListRepositoryImpl) { bind<MovieListRepository>() }
         viewModelOf(::HomeScreenViewModel)
 
         factory<OkHttpClient> {params ->
