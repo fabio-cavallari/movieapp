@@ -9,7 +9,7 @@ import com.example.movieapp.intents.HomeIntent.GetMovieList
 import com.example.movieapp.intents.HomeIntent.PagingTryAgain
 import com.example.movieapp.model.MovieResponse
 import com.example.movieapp.states.HomeScreenUiState
-import com.example.movieapp.states.UiState
+import com.example.movieapp.states.HomeState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -28,7 +28,7 @@ class HomeScreenViewModel(private val repository: MovieListRepository) : ViewMod
         viewModelScope.launch {
             val homeScreenUiState = _state.value
             if (homeScreenUiState.page == 0) {
-                _state.value = homeScreenUiState.copy(uiState = UiState.LOADING)
+                _state.value = homeScreenUiState.copy(uiState = HomeState.LOADING)
             }
             //this delay is just for giving enough time to show progress bar animations
             delay(2000)
@@ -56,18 +56,18 @@ class HomeScreenViewModel(private val repository: MovieListRepository) : ViewMod
         }
     }
 
-    private fun getUiState(movieResponse: MovieResponse): UiState {
+    private fun getUiState(movieResponse: MovieResponse): HomeState {
         val isLastPage = movieResponse.totalPages == movieResponse.page
         return if (isLastPage) {
-            UiState.SUCCESS
+            HomeState.SUCCESS
         } else {
-            UiState.PAGING
+            HomeState.PAGING
         }
 
     }
 
     private fun onPagingTryAgainClick() {
         val homeScreenUiState = _state.value
-        _state.value = homeScreenUiState.copy(uiState = UiState.PAGING)
+        _state.value = homeScreenUiState.copy(uiState = HomeState.PAGING)
     }
 }

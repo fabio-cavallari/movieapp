@@ -32,7 +32,7 @@ import com.example.movieapp.intents.HomeIntent.GoToMovieDetail
 import com.example.movieapp.model.movieListSample
 import com.example.movieapp.navigation.navigateToMovieDetail
 import com.example.movieapp.states.HomeScreenUiState
-import com.example.movieapp.states.UiState
+import com.example.movieapp.states.HomeState
 import com.example.movieapp.viewmodels.HomeScreenViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -56,7 +56,7 @@ fun HomeScreen(
     onIntent: (HomeIntent) -> Unit = {}
 ) {
     when (state.uiState) {
-        UiState.ERROR -> {
+        HomeState.ERROR -> {
             Box(
                 modifier = Modifier
                     .fillMaxSize(),
@@ -75,7 +75,7 @@ fun HomeScreen(
             }
         }
 
-        UiState.LOADING -> {
+        HomeState.LOADING -> {
             Box(
                 modifier = Modifier
                     .fillMaxSize(),
@@ -105,7 +105,7 @@ fun HomeScreen(
                 }
                 item {
                     when (state.uiState) {
-                        UiState.PAGING -> {
+                        HomeState.PAGING -> {
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -123,7 +123,7 @@ fun HomeScreen(
 
                         }
 
-                        UiState.PAGING_ERROR -> {
+                        HomeState.PAGING_ERROR -> {
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -156,7 +156,7 @@ fun HomeScreen(
 @Composable
 private fun HomeScreenSuccessPreview() {
     val homeScreenUiState =
-        HomeScreenUiState(movieList = movieListSample, uiState = UiState.SUCCESS)
+        HomeScreenUiState(movieList = movieListSample, uiState = HomeState.SUCCESS)
     HomeScreen(homeScreenUiState)
 }
 
@@ -164,7 +164,7 @@ private fun HomeScreenSuccessPreview() {
 @Composable
 private fun HomeScreenLoadingPreview() {
     val homeScreenUiState =
-        HomeScreenUiState(movieList = movieListSample, uiState = UiState.LOADING)
+        HomeScreenUiState(movieList = movieListSample, uiState = HomeState.LOADING)
     HomeScreen(homeScreenUiState)
 }
 
@@ -172,6 +172,6 @@ private fun HomeScreenLoadingPreview() {
 @Composable
 private fun HomeScreenErrorPreview() {
     val homeScreenUiState =
-        HomeScreenUiState(movieList = movieListSample, uiState = UiState.ERROR)
+        HomeScreenUiState(movieList = movieListSample, uiState = HomeState.ERROR)
     HomeScreen(homeScreenUiState)
 }

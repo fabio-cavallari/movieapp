@@ -2,8 +2,7 @@ package com.example.movieapp.states
 
 import com.example.movieapp.model.Movie
 
-
-enum class UiState {
+enum class HomeState {
     LOADING,
     SUCCESS,
     ERROR,
@@ -14,14 +13,14 @@ enum class UiState {
 data class HomeScreenUiState(
     val page: Int = 0,
     val movieList: LinkedHashSet<Movie> = linkedSetOf(),
-    val uiState: UiState = UiState.LOADING
+    val uiState: HomeState = HomeState.LOADING
 ) {
 
-    fun getErrorState(): UiState {
+    fun getErrorState(): HomeState {
         return if (page > 1) {
-            UiState.PAGING_ERROR
+            HomeState.PAGING_ERROR
         } else {
-            UiState.ERROR
+            HomeState.ERROR
         }
     }
 }

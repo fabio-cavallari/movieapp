@@ -1,20 +1,20 @@
 package com.example.movieapp.model
 
 data class MovieDetail(
-    val belongsToCollection: Collection?,
-    val genres: List<Genre>,
-    val homepage: String,
-    val id: Int,
-    val imdbId: String,
-    val originalTitle: String,
-    val overview: String,
-    val popularity: Double,
-    val posterPath: String,
-    val productionCompanies: List<ProductionCompany>,
-    val releaseDate: String,
-    val runtime: Int?,
-    val tagline: String,
-    val title: String,
-    val voteAverage: Double,
-    val voteCount: Int
+    val belongsToCollection: Collection? = null,
+    val genres: List<Genre> = listOf(),
+    val homepage: String = "",
+    val id: Int = 0,
+    val imdbId: String = "",
+    val originalTitle: String = "",
+    val overview: String = "",
+    val popularity: Double = 0.0,
+    val posterPath: String = "",
+    val productionCompanies: List<ProductionCompany> = listOf(),
+    val releaseDate: String = "",
+    val runtime: Int? = null,
+    val tagline: String = "",
+    val title: String = "",
+    val voteAverage: Double = 0.0,
+    val voteCount: Int = 0
 )

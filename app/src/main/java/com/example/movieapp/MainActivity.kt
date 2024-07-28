@@ -1,4 +1,4 @@
-package com.example.movieapp.activities
+package com.example.movieapp
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -25,7 +25,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.movieapp.R
 import com.example.movieapp.navigation.MovieAppNavHost
 import com.example.movieapp.navigation.homeScreenRoute
 import com.example.movieapp.ui.theme.MovieAppTheme
