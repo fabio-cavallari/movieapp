@@ -1,6 +1,7 @@
 package com.example.movieapp.viewmodels
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieapp.data.Result
@@ -16,7 +17,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class MovieDetailViewModel(private val repository: MovieDetailRepository) : ViewModel() {
+class MovieDetailViewModel(
+    private val repository: MovieDetailRepository,
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
     private val _state: MutableStateFlow<MovieDetailUiState> = MutableStateFlow(
         MovieDetailUiState(
             LOADING, MovieDetail()
@@ -24,18 +28,28 @@ class MovieDetailViewModel(private val repository: MovieDetailRepository) : View
     )
     val state: StateFlow<MovieDetailUiState> = _state
 
-    fun onIntent(movieDetailIntent: MovieDetailIntent) {
-        when (movieDetailIntent) {
-            is MovieDetailIntent.GetMovieDetail -> getMovieDetail(movieDetailIntent.movieId)
+    private var movieId = ""
+
+    init {
+        movieId = savedStateHandle["movieId"] ?: ""
+        if (movieId.isNotEmpty()) {
+            getMovieDetail()
         }
     }
 
-    private fun getMovieDetail(movieId: Int) {
+    fun onIntent(movieDetailIntent: MovieDetailIntent) {
+        when (movieDetailIntent) {
+            is MovieDetailIntent.GetMovieDetail -> getMovieDetail()
+            else -> {}
+        }
+    }
+
+    private fun getMovieDetail() {
         viewModelScope.launch {
             val movieDetailState = _state.value
             _state.value = movieDetailState.copy(uiState = LOADING)
             //TODO - remover toString
-            val result = repository.getMovieDetail(movieId = movieId.toString())
+            val result = repository.getMovieDetail(movieId = movieId)
             if (result is Result.Success) {
                 val movieDetail = result.data
                 _state.value = movieDetailState.copy(uiState = SUCCESS, movieDetail = movieDetail)

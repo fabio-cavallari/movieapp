@@ -23,9 +23,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.movieapp.R
+import com.example.movieapp.components.ErrorComponent
+import com.example.movieapp.components.LoadingComponent
 import com.example.movieapp.components.MovieCard
 import com.example.movieapp.intents.HomeIntent
 import com.example.movieapp.intents.HomeIntent.GoToMovieDetail
@@ -37,13 +41,17 @@ import com.example.movieapp.viewmodels.HomeScreenViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun HomeScreen(navHostController: NavHostController, viewModel: HomeScreenViewModel = koinViewModel()) {
+fun HomeScreen(
+    navHostController: NavHostController,
+    viewModel: HomeScreenViewModel = koinViewModel()
+) {
     val state by viewModel.state.collectAsState()
     HomeScreen(state) { homeIntent ->
         when (homeIntent) {
             is GoToMovieDetail -> {
                 navHostController.navigateToMovieDetail(homeIntent.movie.id)
             }
+
             else -> viewModel.onIntent(homeIntent)
         }
 
@@ -57,35 +65,15 @@ fun HomeScreen(
 ) {
     when (state.uiState) {
         HomeState.ERROR -> {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Button(
-                    onClick = { onIntent(HomeIntent.GetMovieList) }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Refresh,
-                        contentDescription = "refresh"
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "try again")
-                }
-            }
+            ErrorComponent(
+                errorMessage = stringResource(id = R.string.generic_error_message),
+                buttonText = stringResource(id = R.string.generic_error_button_text),
+                onButtonClick = { onIntent(HomeIntent.GetMovieList) }
+            )
         }
 
         HomeState.LOADING -> {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(24.dp),
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
+            LoadingComponent()
         }
 
         else -> {
@@ -138,7 +126,7 @@ fun HomeScreen(
                                         contentDescription = "refresh"
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
-                                    Text(text = "try again")
+                                    Text(text = stringResource(id = R.string.generic_error_button_text))
                                 }
                             }
                         }

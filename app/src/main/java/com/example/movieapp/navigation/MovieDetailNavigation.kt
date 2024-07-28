@@ -3,20 +3,23 @@ package com.example.movieapp.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.movieapp.screens.MovieDetailScreen
 
-internal const val movieDetailRoute = "movieDetail"
+internal const val baseMovieDetailRoute = "detail/"
+internal const val movieDetailRoute = "detail/{movieId}"
 
 fun NavGraphBuilder.movieDetail(navController: NavHostController) {
     composable(
-        route = movieDetailRoute
+        route = movieDetailRoute,
+        arguments = listOf(navArgument("movieId") { type = NavType.StringType })
     ) { backStackEntry ->
-        val movieId = backStackEntry.arguments?.getString("movieId") ?: ""
-        MovieDetailScreen(navController, movieId)
+        MovieDetailScreen(navController)
     }
 }
 
 fun NavController.navigateToMovieDetail(movieId: String) {
-    navigate(movieDetailRoute)
+    navigate("$baseMovieDetailRoute$movieId", )
 }
