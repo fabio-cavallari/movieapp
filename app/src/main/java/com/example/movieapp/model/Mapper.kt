@@ -9,23 +9,21 @@ import com.example.movieapp.data.dto.ProductionCompanyDto
 
 fun MovieDto.asDomainModel() = Movie(id, title, date, poster, rate)
 
-fun List<MovieDto>.asDomainModel() = map { it.asDomainModel() }
-
-fun MovieResponseDto.asDomainModel() = MovieResponse(page, results.asDomainModel(), totalPages)
+fun MovieResponseDto.asDomainModel() = MovieResponse(
+    page,
+    results.map { it.asDomainModel() },
+    totalPages
+)
 
 fun CollectionDto.asDomainModel() = Collection(id, name, posterPath ?: "")
 
 fun GenreDto.asDomainModel() = Genre(id, name)
 
-fun List<GenreDto>.asDomainModel() = map { it.asDomainModel() }
-
 fun ProductionCompanyDto.asDomainModel() = ProductionCompany(id, logoPath ?: "")
-
-fun List<ProductionCompanyDto>.asDomainModel() = map { it.asDomainModel() }
 
 fun MovieDetailDto.asDomainModel() = MovieDetail(
     belongsToCollection = belongsToCollection?.asDomainModel(),
-    genres = genres.asDomainModel(),
+    genres = genres.map { it.asDomainModel() },
     homepage = homepage ?: "",
     id = id,
     imdbId = imdbId ?: "",
@@ -33,7 +31,7 @@ fun MovieDetailDto.asDomainModel() = MovieDetail(
     overview = overview ?: "",
     popularity = popularity,
     posterPath = posterPath ?: "",
-    productionCompanies = productionCompanies.asDomainModel(),
+    productionCompanies = productionCompanies.map { it.asDomainModel() },
     releaseDate = releaseDate ?: "",
     runtime = runtime,
     tagline = tagline ?: "",

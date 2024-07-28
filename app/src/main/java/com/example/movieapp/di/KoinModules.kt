@@ -1,11 +1,16 @@
 package com.example.movieapp.di
 
+import android.content.res.TypedArray
+import com.example.movieapp.BuildConfig
+import com.example.movieapp.data.repositories.MovieDetailRepository
+import com.example.movieapp.data.repositories.MovieDetailRepositoryImpl
 import com.example.movieapp.data.repositories.MovieListRepository
 import com.example.movieapp.data.repositories.MovieListRepositoryImpl
 import com.example.movieapp.network.clients.MovieDbClient
 import com.example.movieapp.network.remoteproviders.MovieDbRemoteProvider
 import com.example.movieapp.network.remoteproviders.MovieDbRemoteProviderImpl
 import com.example.movieapp.viewmodels.HomeScreenViewModel
+import com.example.movieapp.viewmodels.MovieDetailViewModel
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -16,12 +21,18 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
-object AppModule {
-    val modules = module {
+object KoinModules {
+    private val appModules = module {
         factoryOf(::MovieDbRemoteProviderImpl) { bind<MovieDbRemoteProvider>() }
+        //HomeScreen
         factoryOf(::MovieListRepositoryImpl) { bind<MovieListRepository>() }
         viewModelOf(::HomeScreenViewModel)
+        //MovieDetailScreen
+        factoryOf(::MovieDetailRepositoryImpl) { bind<MovieDetailRepository>() }
+        viewModelOf(::MovieDetailViewModel)
+    }
 
+    private val networkModules = module {
         factory<OkHttpClient> {params ->
             val headers = params.get<Map<String, String>>()
             OkHttpClient.Builder()
@@ -38,14 +49,16 @@ object AppModule {
 
         factory<MovieDbClient> {
             val headersParams = {
-                parametersOf(mapOf("Authorization" to "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYjE3N2UwNjM5Mzk3MTQ4Y2I2ZmNmMGI5MzAyYTY4ZCIsIm5iZiI6MTcyMTc2NzQ4Ni4wMTUxNTEsInN1YiI6IjYyNzg1YjUxYTgwMjM2MTQxNDYxMmJjNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.iVALUHYHr3Ah-zjKzWEeDLVNFKmq_WCg446M-g_HO0w"))
+                parametersOf(mapOf("Authorization" to BuildConfig.API_KEY))
             }
             Retrofit.Builder()
                 .addConverterFactory(JacksonConverterFactory.create())
-                .baseUrl("https://api.themoviedb.org")
+                .baseUrl(BuildConfig.BASE_URL)
                 .client(get(parameters = headersParams))
                 .build()
                 .create(MovieDbClient::class.java)
         }
     }
+
+    val modules = listOf(appModules, networkModules).toTypedArray()
 }

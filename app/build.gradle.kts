@@ -18,6 +18,17 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField(
+            "String",
+            "API_KEY",
+            "\"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYjE3N2UwNjM5Mzk3MTQ4Y2I2ZmNmMGI5MzAyYTY4ZCIsIm5iZiI6MTcyMTc2NzQ4Ni4wMTUxNTEsInN1YiI6IjYyNzg1YjUxYTgwMjM2MTQxNDYxMmJjNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.iVALUHYHr3Ah-zjKzWEeDLVNFKmq_WCg446M-g_HO0w\""
+        )
+        buildConfigField(
+            "String",
+            "BASE_URL",
+            "\"https://api.themoviedb.org\""
+        )
     }
 
     buildTypes {
@@ -38,6 +49,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
