@@ -5,6 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class ProductionCompanyDto(
-    val id: Int,
+    @JsonProperty("id") val id: Int,
     @JsonProperty("logo_path") val logoPath: String?,
 )

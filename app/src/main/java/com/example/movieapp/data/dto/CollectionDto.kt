@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class CollectionDto(
-    val id: Int,
-    val name: String,
+    @JsonProperty("id") val id: Int,
+    @JsonProperty("name") val name: String,
     @JsonProperty("poster_path") val posterPath: String?,
 )
