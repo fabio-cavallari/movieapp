@@ -1,5 +1,8 @@
 package com.example.movieapp.components
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -37,8 +40,13 @@ import com.example.movieapp.model.Movie
 import com.example.movieapp.model.movieSample2
 import com.example.movieapp.utils.formatDate
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
+fun SharedTransitionScope.MovieCard(
+    movie: Movie,
+    animatedVisibilityScope: AnimatedVisibilityScope,
+    onMovieClick: (Movie) -> Unit = {}
+) {
     Card(
         Modifier
             .height(200.dp)
@@ -49,7 +57,7 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
         shape = RoundedCornerShape(16.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
 
-    ) {
+        ) {
         Row(
             Modifier.background(color = Color.Transparent)
         ) {
@@ -60,11 +68,14 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
                     .clip(RoundedCornerShape(16.dp))
             ) {
                 AsyncImage(
+                    modifier = Modifier
+                        .sharedElement(
+                            state = rememberSharedContentState(key = movie.poster),
+                            animatedVisibilityScope = animatedVisibilityScope
+                        ),
                     model = "https://image.tmdb.org/t/p/original${movie.poster}",
                     contentDescription = null,
                     contentScale = ContentScale.Fit,
-                    placeholder = painterResource(id = R.drawable.placeholder),
-                    error = painterResource(id = R.drawable.placeholder)
                 )
             }
             Column(
@@ -74,6 +85,11 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
             ) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
+                    modifier = Modifier
+                        .sharedElement(
+                            state = rememberSharedContentState(key = movie.title),
+                            animatedVisibilityScope = animatedVisibilityScope
+                        ),
                     text = movie.title,
                     fontSize = 24.sp,
                     fontWeight = FontWeight(700),
@@ -108,8 +124,8 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
     }
 }
 
-@Preview
-@Composable
-fun MovieCardPrev() {
-    MovieCard(movieSample2)
-}
+//@Preview
+//@Composable
+//fun MovieCardPrev() {
+//    MovieCard(movieSample2)
+//}

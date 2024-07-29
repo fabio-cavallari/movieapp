@@ -1,5 +1,8 @@
 package com.example.movieapp.screens
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -49,13 +52,15 @@ import com.example.movieapp.utils.formatDate
 import com.example.movieapp.viewmodels.MovieDetailViewModel
 import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun MovieDetailScreen(
+fun SharedTransitionScope.MovieDetailScreen(
     navController: NavHostController,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     viewModel: MovieDetailViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
-    MovieDetailScreen(state) { movieDetailIntent ->
+    MovieDetailScreen(state, animatedVisibilityScope) { movieDetailIntent ->
         when (movieDetailIntent) {
             is MovieDetailIntent.GoBack -> navController.popBackStack()
             else -> viewModel.onIntent(movieDetailIntent)
@@ -63,13 +68,48 @@ fun MovieDetailScreen(
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun MovieDetailScreen(
+fun SharedTransitionScope.MovieDetailScreen(
     state: MovieDetailUiState,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     onIntent: (MovieDetailIntent) -> Unit = {}
 ) {
     when (state.uiState) {
-        MovieState.LOADING -> LoadingComponent()
+        MovieState.LOADING -> {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+                    .padding(24.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+
+            ) {
+                AsyncImage(
+                    modifier = Modifier
+                        .sharedElement(
+                            state = rememberSharedContentState(key = state.movieDetail.posterPath),
+                            animatedVisibilityScope = animatedVisibilityScope
+                        ),
+                    model = "https://image.tmdb.org/t/p/original${state.movieDetail.posterPath}",
+                    contentDescription = null,
+                    contentScale = ContentScale.Fit,
+                )
+                Text(
+                    modifier = Modifier
+                        .sharedElement(
+                            state = rememberSharedContentState(key = state.movieDetail.title),
+                            animatedVisibilityScope = animatedVisibilityScope
+                        ),
+                    text = state.movieDetail.title,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight(700),
+                    color = MaterialTheme.colorScheme.primary
+                )
+                LoadingComponent()
+            }
+        }
+
         MovieState.ERROR -> ErrorComponent(
             errorMessage = stringResource(id = R.string.generic_error_message),
             buttonText = stringResource(
@@ -77,6 +117,7 @@ fun MovieDetailScreen(
             ),
             onButtonClick = { onIntent(MovieDetailIntent.GetMovieDetail) }
         )
+
         MovieState.SUCCESS -> {
             Column(
                 modifier = Modifier
@@ -86,20 +127,22 @@ fun MovieDetailScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
 
             ) {
-                Box(
-                    Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp))
-                ) {
-                    AsyncImage(
-                        model = "https://image.tmdb.org/t/p/original${state.movieDetail.posterPath}",
-                        contentDescription = null,
-                        placeholder = painterResource(id = R.drawable.placeholder),
-                        error = painterResource(id = R.drawable.placeholder),
-                        contentScale = ContentScale.Fit,
-                    )
-                }
+                AsyncImage(
+                    modifier = Modifier
+                        .sharedElement(
+                            state = rememberSharedContentState(key = state.movieDetail.posterPath),
+                            animatedVisibilityScope = animatedVisibilityScope
+                        ),
+                    model = "https://image.tmdb.org/t/p/original${state.movieDetail.posterPath}",
+                    contentDescription = null,
+                    contentScale = ContentScale.Fit,
+                )
                 Text(
+                    modifier = Modifier
+                        .sharedElement(
+                            state = rememberSharedContentState(key = state.movieDetail.title),
+                            animatedVisibilityScope = animatedVisibilityScope
+                        ),
                     text = state.movieDetail.title,
                     fontSize = 24.sp,
                     fontWeight = FontWeight(700),
@@ -155,7 +198,7 @@ fun MovieDetailScreen(
                                     .width(100.dp)
                                     .height(100.dp),
                                 contentAlignment = Alignment.Center
-                                ) {
+                            ) {
                                 AsyncImage(
                                     model = "https://image.tmdb.org/t/p/original${productionCompany.logoPath}",
                                     contentDescription = null,
@@ -171,8 +214,8 @@ fun MovieDetailScreen(
     }
 }
 
-@Preview(showSystemUi = true)
-@Composable
-private fun MovieDetailScreenSuccessPreview() {
-    MovieDetailScreen(state = MovieDetailUiState(MovieState.SUCCESS, movieDetailSample))
-}
+//@Preview(showSystemUi = true)
+//@Composable
+//private fun MovieDetailScreenSuccessPreview() {
+//    MovieDetailScreen(state = MovieDetailUiState(MovieState.SUCCESS, movieDetailSample))
+//}

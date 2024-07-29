@@ -21,7 +21,7 @@ class MovieDetailViewModel(
 ) : ViewModel() {
     private val _state: MutableStateFlow<MovieDetailUiState> = MutableStateFlow(
         MovieDetailUiState(
-            LOADING, MovieDetail()
+            SUCCESS, MovieDetail()
         )
     )
     val state: StateFlow<MovieDetailUiState> = _state
@@ -43,7 +43,7 @@ class MovieDetailViewModel(
     private fun getMovieDetail() {
         viewModelScope.launch {
             val movieDetailState = _state.value
-            _state.value = movieDetailState.copy(uiState = LOADING)
+//            _state.value = movieDetailState.copy(uiState = LOADING)
             val result = movieId?.let { repository.getMovieDetail(it) }
             if (result is Result.Success) {
                 val movieDetail = result.data

@@ -1,5 +1,8 @@
 package com.example.movieapp.screens
 
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -40,13 +43,15 @@ import com.example.movieapp.states.HomeState
 import com.example.movieapp.viewmodels.HomeScreenViewModel
 import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun HomeScreen(
+fun SharedTransitionScope.HomeScreen(
     navHostController: NavHostController,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     viewModel: HomeScreenViewModel = koinViewModel()
 ) {
     val state by viewModel.state.collectAsState()
-    HomeScreen(state) { homeIntent ->
+    HomeScreen(state = state, animatedVisibilityScope = animatedVisibilityScope) { homeIntent ->
         when (homeIntent) {
             is GoToMovieDetail -> {
                 navHostController.navigateToMovieDetail(homeIntent.movie.id)
@@ -58,9 +63,11 @@ fun HomeScreen(
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun HomeScreen(
+fun SharedTransitionScope.HomeScreen(
     state: HomeScreenUiState,
+    animatedVisibilityScope: AnimatedVisibilityScope,
     onIntent: (HomeIntent) -> Unit = {}
 ) {
     when (state.uiState) {
@@ -87,7 +94,7 @@ fun HomeScreen(
                     items = state.movieList.toList(),
                     key = { it.id },
                 ) { movie ->
-                    MovieCard(movie) {
+                    MovieCard(movie, animatedVisibilityScope) {
                         onIntent(GoToMovieDetail(movie))
                     }
                 }
@@ -140,26 +147,26 @@ fun HomeScreen(
 
 }
 
-@Preview(showSystemUi = true)
-@Composable
-private fun HomeScreenSuccessPreview() {
-    val homeScreenUiState =
-        HomeScreenUiState(movieList = movieListSample, uiState = HomeState.SUCCESS)
-    HomeScreen(homeScreenUiState)
-}
-
-@Preview(showSystemUi = true)
-@Composable
-private fun HomeScreenLoadingPreview() {
-    val homeScreenUiState =
-        HomeScreenUiState(movieList = movieListSample, uiState = HomeState.LOADING)
-    HomeScreen(homeScreenUiState)
-}
-
-@Preview(showSystemUi = true)
-@Composable
-private fun HomeScreenErrorPreview() {
-    val homeScreenUiState =
-        HomeScreenUiState(movieList = movieListSample, uiState = HomeState.ERROR)
-    HomeScreen(homeScreenUiState)
-}
+//@Preview(showSystemUi = true)
+//@Composable
+//private fun HomeScreenSuccessPreview() {
+//    val homeScreenUiState =
+//        HomeScreenUiState(movieList = movieListSample, uiState = HomeState.SUCCESS)
+//    HomeScreen(homeScreenUiState)
+//}
+//
+//@Preview(showSystemUi = true)
+//@Composable
+//private fun HomeScreenLoadingPreview() {
+//    val homeScreenUiState =
+//        HomeScreenUiState(movieList = movieListSample, uiState = HomeState.LOADING)
+//    HomeScreen(homeScreenUiState)
+//}
+//
+//@Preview(showSystemUi = true)
+//@Composable
+//private fun HomeScreenErrorPreview() {
+//    val homeScreenUiState =
+//        HomeScreenUiState(movieList = movieListSample, uiState = HomeState.ERROR)
+//    HomeScreen(homeScreenUiState)
+//}
