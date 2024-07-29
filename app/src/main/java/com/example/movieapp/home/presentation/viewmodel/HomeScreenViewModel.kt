@@ -1,15 +1,16 @@
 package com.example.movieapp.home.presentation.viewmodel
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapp.shared.utils.Result
 import com.example.movieapp.home.data.repository.MovieListRepository
+import com.example.movieapp.home.domain.MovieResponse
 import com.example.movieapp.home.presentation.intent.HomeIntent
 import com.example.movieapp.home.presentation.intent.HomeIntent.GetMovieList
 import com.example.movieapp.home.presentation.intent.HomeIntent.PagingTryAgain
-import com.example.movieapp.home.domain.MovieResponse
 import com.example.movieapp.home.presentation.state.HomeScreenUiState
 import com.example.movieapp.home.presentation.state.HomeState
+import com.example.movieapp.shared.utils.Result
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,13 +25,13 @@ class HomeScreenViewModel(private val repository: MovieListRepository) : ViewMod
         getMovieList()
     }
 
-    private fun getMovieList() {
+    fun getMovieList() {
         viewModelScope.launch {
             val homeScreenUiState = _state.value
             if (homeScreenUiState.page == 0) {
                 _state.value = homeScreenUiState.copy(uiState = HomeState.LOADING)
             }
-            //this delay is just for giving enough time to show progress bar animations
+            // this delay is just for giving enough time to show progress bar animations
             delay(2000)
             val result = repository.getMovieList(homeScreenUiState.page + 1)
             if (result is Result.Success) {
@@ -70,4 +71,10 @@ class HomeScreenViewModel(private val repository: MovieListRepository) : ViewMod
         val homeScreenUiState = _state.value
         _state.value = homeScreenUiState.copy(uiState = HomeState.PAGING)
     }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    internal fun resetStateForTest(page: Int = 0) {
+        _state.value = HomeScreenUiState(page)
+    }
+
 }

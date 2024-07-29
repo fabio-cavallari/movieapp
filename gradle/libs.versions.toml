@@ -13,6 +13,10 @@ coil = "2.7.0"
 retrofit = "2.11.0"
 lifecycle_viewmodel_compose = "2.8.3"
 nav-version = "2.5.3"
+mockk = "1.13.8"
+androidxArch = "2.2.0"
+coroutinesTest = "1.7.3"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +43,11 @@ koin-android = { module = "io.insert-koin:koin-android" }
 koin-navigation = { module = "io.insert-koin:koin-androidx-navigation"}
 koin-compose = { module = "io.insert-koin:koin-androidx-compose"}
 nav-compose = { module = "androidx.navigation:navigation-compose", version.ref = "nav-version"}
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+mockk-agent-jvm = { module = "io.mockk:mockk-agent-jvm", version.ref = "mockk" }
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
+androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "androidxArch" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutinesTest" }
 
 
 [plugins]

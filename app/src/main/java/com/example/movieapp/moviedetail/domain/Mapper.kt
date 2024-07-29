@@ -9,14 +9,6 @@ import com.example.movieapp.moviedetail.data.model.ProductionCompanyDto
 import com.example.movieapp.home.domain.Movie
 import com.example.movieapp.home.domain.MovieResponse
 
-fun MovieDto.asDomainModel() = Movie(id, title, date, poster, rate)
-
-fun MovieResponseDto.asDomainModel() = MovieResponse(
-    page,
-    results.map { it.asDomainModel() },
-    totalPages
-)
-
 fun CollectionDto.asDomainModel() = Collection(id, name, posterPath ?: "")
 
 fun GenreDto.asDomainModel() = Genre(id, name)

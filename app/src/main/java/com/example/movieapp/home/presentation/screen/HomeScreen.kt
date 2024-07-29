@@ -28,7 +28,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.movieapp.R
-import com.example.movieapp.home.domain.movieListSample
 import com.example.movieapp.home.presentation.component.MovieCard
 import com.example.movieapp.home.presentation.intent.HomeIntent
 import com.example.movieapp.home.presentation.intent.HomeIntent.GoToMovieDetail
@@ -38,6 +37,7 @@ import com.example.movieapp.home.presentation.viewmodel.HomeScreenViewModel
 import com.example.movieapp.moviedetail.presentation.navigation.navigateToMovieDetail
 import com.example.movieapp.shared.presentation.components.ErrorComponent
 import com.example.movieapp.shared.presentation.components.LoadingComponent
+import com.example.movieapp.shared.presentation.sampledata.movieListSample
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

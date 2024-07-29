@@ -34,8 +34,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import com.example.movieapp.R
 import com.example.movieapp.home.domain.Movie
-import com.example.movieapp.home.domain.movieSample2
 import com.example.movieapp.shared.presentation.components.LoadingComponent
+import com.example.movieapp.shared.presentation.sampledata.movieSample2
 import com.example.movieapp.shared.utils.formatDate
 
 @Composable

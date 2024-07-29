@@ -34,13 +34,13 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import com.example.movieapp.R
-import com.example.movieapp.moviedetail.domain.movieDetailSample
 import com.example.movieapp.moviedetail.presentation.intent.MovieDetailIntent
 import com.example.movieapp.moviedetail.presentation.state.MovieDetailUiState
 import com.example.movieapp.moviedetail.presentation.state.MovieState
 import com.example.movieapp.moviedetail.presentation.viewmodel.MovieDetailViewModel
 import com.example.movieapp.shared.presentation.components.ErrorComponent
 import com.example.movieapp.shared.presentation.components.LoadingComponent
+import com.example.movieapp.shared.presentation.sampledata.movieDetailSample
 import com.example.movieapp.shared.presentation.theme.backgroundLight
 import com.example.movieapp.shared.utils.formatDate
 import org.koin.androidx.compose.koinViewModel
