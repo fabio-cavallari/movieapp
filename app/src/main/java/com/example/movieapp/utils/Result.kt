@@ -1,4 +1,4 @@
-package com.example.movieapp.data
+package com.example.movieapp.utils
 
 sealed class Result<out R> {
     class Success<out T>(val data: T) : Result<T>()

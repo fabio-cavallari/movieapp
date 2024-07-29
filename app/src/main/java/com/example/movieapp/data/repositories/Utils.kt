@@ -1,6 +1,6 @@
 package com.example.movieapp.data.repositories
 
-import com.example.movieapp.data.Result
+import com.example.movieapp.utils.Result
 import retrofit2.Response
 
 suspend fun <T, R> handleApiResponse(

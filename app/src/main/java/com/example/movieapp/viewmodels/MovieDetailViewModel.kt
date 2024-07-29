@@ -1,15 +1,13 @@
 package com.example.movieapp.viewmodels
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapp.data.Result
+import com.example.movieapp.utils.Result
 import com.example.movieapp.data.repositories.MovieDetailRepository
 import com.example.movieapp.intents.MovieDetailIntent
 import com.example.movieapp.model.MovieDetail
 import com.example.movieapp.states.MovieDetailUiState
-import com.example.movieapp.states.MovieState
 import com.example.movieapp.states.MovieState.ERROR
 import com.example.movieapp.states.MovieState.LOADING
 import com.example.movieapp.states.MovieState.SUCCESS

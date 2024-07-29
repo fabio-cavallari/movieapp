@@ -2,7 +2,7 @@ package com.example.movieapp.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapp.data.Result
+import com.example.movieapp.utils.Result
 import com.example.movieapp.data.repositories.MovieListRepository
 import com.example.movieapp.intents.HomeIntent
 import com.example.movieapp.intents.HomeIntent.GetMovieList
