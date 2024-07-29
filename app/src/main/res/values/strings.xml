@@ -4,6 +4,8 @@
     <string name="generic_error_message">Unexpected error, please verify your connection and try again</string>
     <string name="generic_error_button_text">try again</string>
 
+    <string name="movie_card_rate">%.2f</string>
+
     <string name="product_detail_duration">duration: %d min</string>
     <string name="product_detail_vote_average">vote average: %.2f</string>
 </resources>

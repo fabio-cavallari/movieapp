@@ -15,6 +15,6 @@ interface MovieDbClient {
 
     @GET("/3/movie/{movieId}")
     suspend fun getMovieDetail(
-        @Path("movieId") movieId: String
+        @Path("movieId") movieId: Int
     ): Response<MovieDetailDto>
 }

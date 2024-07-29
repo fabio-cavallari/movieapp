@@ -14,12 +14,12 @@ internal const val movieDetailRoute = "detail/{movieId}"
 fun NavGraphBuilder.movieDetail(navController: NavHostController) {
     composable(
         route = movieDetailRoute,
-        arguments = listOf(navArgument("movieId") { type = NavType.StringType })
+        arguments = listOf(navArgument("movieId") { type = NavType.IntType })
     ) { backStackEntry ->
         MovieDetailScreen(navController)
     }
 }
 
-fun NavController.navigateToMovieDetail(movieId: String) {
-    navigate("$baseMovieDetailRoute$movieId", )
+fun NavController.navigateToMovieDetail(movieId: Int) {
+    navigate("$baseMovieDetailRoute$movieId")
 }

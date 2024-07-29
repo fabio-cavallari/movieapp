@@ -14,7 +14,7 @@ class MovieDbRemoteProviderImpl(private val client: MovieDbClient): MovieDbRemot
         }
     }
 
-    override suspend fun getMovieDetail(movieId: String): Pair<Response<MovieDetailDto>?, Exception?> {
+    override suspend fun getMovieDetail(movieId: Int): Pair<Response<MovieDetailDto>?, Exception?> {
         return try {
             Pair(client.getMovieDetail(movieId), null)
         } catch (e: Exception) {

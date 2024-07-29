@@ -4,5 +4,5 @@ import com.example.movieapp.data.Result
 import com.example.movieapp.model.MovieDetail
 
 interface MovieDetailRepository {
-    suspend fun getMovieDetail(movieId: String): Result<MovieDetail>
+    suspend fun getMovieDetail(movieId: Int): Result<MovieDetail>
 }

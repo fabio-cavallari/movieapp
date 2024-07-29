@@ -25,7 +25,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -74,7 +76,9 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
                     text = movie.title,
                     fontSize = 24.sp,
                     fontWeight = FontWeight(700),
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
@@ -82,7 +86,7 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
                     fontSize = 16.sp,
                     color = MaterialTheme.colorScheme.secondary
                 )
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -92,7 +96,7 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = movie.rate,
+                        text = stringResource(id = R.string.movie_card_rate, movie.rate),
                         fontWeight = FontWeight(500),
                         color = MaterialTheme.colorScheme.secondary
                     )

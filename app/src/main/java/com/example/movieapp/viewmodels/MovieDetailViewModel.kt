@@ -28,13 +28,11 @@ class MovieDetailViewModel(
     )
     val state: StateFlow<MovieDetailUiState> = _state
 
-    private var movieId = ""
+    private var movieId: Int? = null
 
     init {
-        movieId = savedStateHandle["movieId"] ?: ""
-        if (movieId.isNotEmpty()) {
-            getMovieDetail()
-        }
+        movieId = savedStateHandle["movieId"]
+        movieId?.run { getMovieDetail() }
     }
 
     fun onIntent(movieDetailIntent: MovieDetailIntent) {
@@ -48,8 +46,7 @@ class MovieDetailViewModel(
         viewModelScope.launch {
             val movieDetailState = _state.value
             _state.value = movieDetailState.copy(uiState = LOADING)
-            //TODO - remover toString
-            val result = repository.getMovieDetail(movieId = movieId)
+            val result = movieId?.let { repository.getMovieDetail(it) }
             if (result is Result.Success) {
                 val movieDetail = result.data
                 _state.value = movieDetailState.copy(uiState = SUCCESS, movieDetail = movieDetail)
