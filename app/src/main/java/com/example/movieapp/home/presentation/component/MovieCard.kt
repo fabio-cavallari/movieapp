@@ -33,9 +33,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import com.example.movieapp.R
-import com.example.movieapp.shared.presentation.components.LoadingComponent
 import com.example.movieapp.home.domain.Movie
 import com.example.movieapp.home.domain.movieSample2
+import com.example.movieapp.shared.presentation.components.LoadingComponent
 import com.example.movieapp.shared.utils.formatDate
 
 @Composable
@@ -63,7 +63,7 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
             ) {
                 SubcomposeAsyncImage(
                     model = "https://image.tmdb.org/t/p/original${movie.poster}",
-                    contentDescription = null,
+                    contentDescription = "movieCardPoster",
                     contentScale = ContentScale.Fit,
                     loading = { LoadingComponent() },
                 )
@@ -94,7 +94,7 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_popcorn),
-                        contentDescription = null
+                        contentDescription = "movieCardPopcornIcon"
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(

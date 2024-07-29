@@ -28,16 +28,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.movieapp.R
-import com.example.movieapp.shared.presentation.components.ErrorComponent
-import com.example.movieapp.shared.presentation.components.LoadingComponent
+import com.example.movieapp.home.domain.movieListSample
 import com.example.movieapp.home.presentation.component.MovieCard
 import com.example.movieapp.home.presentation.intent.HomeIntent
 import com.example.movieapp.home.presentation.intent.HomeIntent.GoToMovieDetail
-import com.example.movieapp.home.domain.movieListSample
-import com.example.movieapp.moviedetail.presentation.navigation.navigateToMovieDetail
 import com.example.movieapp.home.presentation.state.HomeScreenUiState
 import com.example.movieapp.home.presentation.state.HomeState
 import com.example.movieapp.home.presentation.viewmodel.HomeScreenViewModel
+import com.example.movieapp.moviedetail.presentation.navigation.navigateToMovieDetail
+import com.example.movieapp.shared.presentation.components.ErrorComponent
+import com.example.movieapp.shared.presentation.components.LoadingComponent
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -123,7 +123,7 @@ fun HomeScreen(
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Refresh,
-                                        contentDescription = "refresh"
+                                        contentDescription = "pagingRefresh"
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
                                     Text(text = stringResource(id = R.string.generic_error_button_text))

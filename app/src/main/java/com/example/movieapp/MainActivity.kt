@@ -25,8 +25,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.movieapp.shared.presentation.navigation.MovieAppNavHost
 import com.example.movieapp.home.presentation.navigation.homeScreenRoute
+import com.example.movieapp.shared.presentation.navigation.MovieAppNavHost
 import com.example.movieapp.shared.presentation.theme.MovieAppTheme
 
 
@@ -66,7 +66,7 @@ fun App(navController: NavHostController) {
                                 IconButton(onClick = { navController.popBackStack() }) {
                                     Icon(
                                         imageVector = Icons.Default.ArrowBack,
-                                        contentDescription = "goBack"
+                                        contentDescription = "navigationBack"
                                     )
                                 }
                             }

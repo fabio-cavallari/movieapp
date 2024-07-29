@@ -34,14 +34,14 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import com.example.movieapp.R
-import com.example.movieapp.shared.presentation.components.ErrorComponent
-import com.example.movieapp.shared.presentation.components.LoadingComponent
-import com.example.movieapp.moviedetail.presentation.intent.MovieDetailIntent
 import com.example.movieapp.moviedetail.domain.movieDetailSample
+import com.example.movieapp.moviedetail.presentation.intent.MovieDetailIntent
 import com.example.movieapp.moviedetail.presentation.state.MovieDetailUiState
 import com.example.movieapp.moviedetail.presentation.state.MovieState
-import com.example.movieapp.shared.utils.formatDate
 import com.example.movieapp.moviedetail.presentation.viewmodel.MovieDetailViewModel
+import com.example.movieapp.shared.presentation.components.ErrorComponent
+import com.example.movieapp.shared.presentation.components.LoadingComponent
+import com.example.movieapp.shared.utils.formatDate
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -89,7 +89,7 @@ fun MovieDetailScreen(
                 ) {
                     SubcomposeAsyncImage(
                         model = "https://image.tmdb.org/t/p/original${state.movieDetail.posterPath}",
-                        contentDescription = null,
+                        contentDescription = "movieDetailPoster",
                         loading = {
                             Box(
                                 modifier = Modifier
@@ -165,7 +165,7 @@ fun MovieDetailScreen(
                             ) {
                                 AsyncImage(
                                     model = "https://image.tmdb.org/t/p/original${productionCompany.logoPath}",
-                                    contentDescription = null,
+                                    contentDescription = "movieDetailProductionCompanyIcon",
                                     contentScale = ContentScale.Fit,
                                 )
                             }
