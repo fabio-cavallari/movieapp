@@ -22,3 +22,10 @@ Existem melhorias a serem realizadas no projeto, tanto a nível de features, com
  - Realizar mais testes e melhorar a qualidade deles
  - Divisão em módulos (network, commonUi ...)
  - Adicionar log de requests
+
+
+
+## Preview
+
+https://github.com/user-attachments/assets/e16b408f-888b-442f-9eb3-b51560ee619f
+
