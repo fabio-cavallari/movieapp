@@ -12,10 +12,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -32,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import com.example.movieapp.R
 import com.example.movieapp.model.Movie
 import com.example.movieapp.model.movieSample2
@@ -57,14 +60,14 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
                 Modifier
                     .padding(16.dp)
                     .fillMaxHeight()
+                    .width(100.dp)
                     .clip(RoundedCornerShape(16.dp))
             ) {
-                AsyncImage(
+                SubcomposeAsyncImage(
                     model = "https://image.tmdb.org/t/p/original${movie.poster}",
                     contentDescription = null,
                     contentScale = ContentScale.Fit,
-                    placeholder = painterResource(id = R.drawable.placeholder),
-                    error = painterResource(id = R.drawable.placeholder)
+                    loading = { LoadingComponent() },
                 )
             }
             Column(

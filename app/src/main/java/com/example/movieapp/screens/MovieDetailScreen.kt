@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyRow
@@ -18,6 +19,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -37,6 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import com.example.movieapp.R
 import com.example.movieapp.components.ErrorComponent
 import com.example.movieapp.components.LoadingComponent
@@ -77,6 +80,7 @@ fun MovieDetailScreen(
             ),
             onButtonClick = { onIntent(MovieDetailIntent.GetMovieDetail) }
         )
+
         MovieState.SUCCESS -> {
             Column(
                 modifier = Modifier
@@ -88,14 +92,25 @@ fun MovieDetailScreen(
             ) {
                 Box(
                     Modifier
-                        .fillMaxWidth()
+                        .height(400.dp)
                         .clip(RoundedCornerShape(16.dp))
                 ) {
-                    AsyncImage(
+                    SubcomposeAsyncImage(
                         model = "https://image.tmdb.org/t/p/original${state.movieDetail.posterPath}",
                         contentDescription = null,
-                        placeholder = painterResource(id = R.drawable.placeholder),
-                        error = painterResource(id = R.drawable.placeholder),
+                        loading = {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxHeight()
+                                    .width(250.dp),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CircularProgressIndicator(
+                                    modifier = Modifier.size(24.dp),
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        },
                         contentScale = ContentScale.Fit,
                     )
                 }
@@ -155,7 +170,7 @@ fun MovieDetailScreen(
                                     .width(100.dp)
                                     .height(100.dp),
                                 contentAlignment = Alignment.Center
-                                ) {
+                            ) {
                                 AsyncImage(
                                     model = "https://image.tmdb.org/t/p/original${productionCompany.logoPath}",
                                     contentDescription = null,
