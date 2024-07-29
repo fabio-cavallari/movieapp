@@ -12,3 +12,12 @@ Dentre as tecnologias/conceitos usados para atingir tal objetivo, destaco:
  - Navigation
  - Koin
  - Retrofit
+ - Mockk
+
+## Melhorias a serem feitas
+
+Existem melhorias a serem realizadas no projeto, tanto a nível de features, como de tecnologias usadas. Tais como:
+
+ - Implementar feature de busca
+ - Realizar mais testes e melhorar a qualidade deles
+ - Divisão em módulos (network, commomUi ...)
