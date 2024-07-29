@@ -23,6 +23,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -79,6 +80,7 @@ fun HomeScreen(
         else -> {
             LazyColumn(
                 modifier = Modifier
+                    .testTag("homeScreenSuccessColumn")
                     .fillMaxSize(),
                 contentPadding = PaddingValues(8.dp)
 
@@ -96,6 +98,7 @@ fun HomeScreen(
                         HomeState.PAGING -> {
                             Box(
                                 modifier = Modifier
+                                    .testTag("homeScreenPagingIndicator")
                                     .fillMaxWidth()
                                     .height(100.dp),
                                 contentAlignment = Alignment.Center

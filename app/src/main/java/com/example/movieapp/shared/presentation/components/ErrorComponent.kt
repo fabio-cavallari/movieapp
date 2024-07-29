@@ -15,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.sp
 fun ErrorComponent(errorMessage: String, buttonText: String, onButtonClick: () -> Unit = {}) {
     Column(
         Modifier
+            .testTag("errorComponentTag")
             .fillMaxSize()
             .padding(48.dp),
         verticalArrangement = Arrangement.Center,
@@ -35,6 +37,8 @@ fun ErrorComponent(errorMessage: String, buttonText: String, onButtonClick: () -
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
+            modifier = Modifier
+                .testTag("errorComponentRetryButton"),
             onClick = onButtonClick
         ) {
             Icon(
