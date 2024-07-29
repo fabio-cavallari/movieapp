@@ -35,6 +35,7 @@ import coil.compose.AsyncImage
 import com.example.movieapp.R
 import com.example.movieapp.model.Movie
 import com.example.movieapp.model.movieSample2
+import com.example.movieapp.utils.formatDate
 
 @Composable
 fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
@@ -82,7 +83,7 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = movie.date,
+                    text = formatDate(movie.date),
                     fontSize = 16.sp,
                     color = MaterialTheme.colorScheme.secondary
                 )

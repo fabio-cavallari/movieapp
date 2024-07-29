@@ -45,6 +45,7 @@ import com.example.movieapp.model.MovieDetail
 import com.example.movieapp.model.movieDetailSample
 import com.example.movieapp.states.MovieDetailUiState
 import com.example.movieapp.states.MovieState
+import com.example.movieapp.utils.formatDate
 import com.example.movieapp.viewmodels.MovieDetailViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -76,7 +77,6 @@ fun MovieDetailScreen(
             ),
             onButtonClick = { onIntent(MovieDetailIntent.GetMovieDetail) }
         )
-
         MovieState.SUCCESS -> {
             Column(
                 modifier = Modifier
@@ -107,7 +107,7 @@ fun MovieDetailScreen(
                 )
                 Text(text = state.movieDetail.tagline, color = MaterialTheme.colorScheme.secondary)
                 Text(
-                    text = state.movieDetail.releaseDate,
+                    text = formatDate(state.movieDetail.releaseDate),
                     color = MaterialTheme.colorScheme.secondary
                 )
                 if (state.movieDetail.genres.isNotEmpty()) {
