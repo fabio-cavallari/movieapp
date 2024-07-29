@@ -25,9 +25,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.movieapp.navigation.MovieAppNavHost
-import com.example.movieapp.navigation.homeScreenRoute
-import com.example.movieapp.ui.theme.MovieAppTheme
+import com.example.movieapp.shared.presentation.navigation.MovieAppNavHost
+import com.example.movieapp.home.presentation.navigation.homeScreenRoute
+import com.example.movieapp.shared.presentation.theme.MovieAppTheme
 
 
 class MainActivity : ComponentActivity() {
@@ -83,13 +83,3 @@ fun App(navController: NavHostController) {
         }
     }
 }
-
-//@Preview(showSystemUi = true)
-//@Composable
-//private fun AppPreview() {
-//    App {
-//        val homeScreenUiState =
-//            HomeScreenUiState(movieList = movieListSample, uiState = UiState.SUCCESS)
-//        HomeScreen(homeScreenUiState)
-//    }
-//}

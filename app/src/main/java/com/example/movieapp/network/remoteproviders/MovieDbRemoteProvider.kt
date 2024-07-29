@@ -1,7 +1,7 @@
 package com.example.movieapp.network.remoteproviders
 
-import com.example.movieapp.data.dto.MovieDetailDto
-import com.example.movieapp.data.dto.MovieResponseDto
+import com.example.movieapp.moviedetail.data.model.MovieDetailDto
+import com.example.movieapp.home.data.model.MovieResponseDto
 import retrofit2.Response
 
 interface MovieDbRemoteProvider {
