@@ -20,4 +20,4 @@ Existem melhorias a serem realizadas no projeto, tanto a nível de features, com
 
  - Implementar feature de busca
  - Realizar mais testes e melhorar a qualidade deles
- - Divisão em módulos (network, commomUi ...)
+ - Divisão em módulos (network, commonUi ...)
