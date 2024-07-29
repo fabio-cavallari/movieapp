@@ -41,6 +41,7 @@ import com.example.movieapp.moviedetail.presentation.state.MovieState
 import com.example.movieapp.moviedetail.presentation.viewmodel.MovieDetailViewModel
 import com.example.movieapp.shared.presentation.components.ErrorComponent
 import com.example.movieapp.shared.presentation.components.LoadingComponent
+import com.example.movieapp.shared.presentation.theme.backgroundLight
 import com.example.movieapp.shared.utils.formatDate
 import org.koin.androidx.compose.koinViewModel
 
@@ -123,14 +124,14 @@ fun MovieDetailScreen(
                             Box(
                                 modifier = Modifier
                                     .background(
-                                        color = MaterialTheme.colorScheme.secondaryContainer,
+                                        color = MaterialTheme.colorScheme.tertiaryContainer,
                                         shape = RoundedCornerShape(100.dp)
                                     )
                                     .padding(horizontal = 16.dp)
                             ) {
                                 Text(
                                     text = genre.name,
-                                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                                    color = MaterialTheme.colorScheme.onTertiaryContainer
                                 )
                             }
                         }
@@ -160,8 +161,11 @@ fun MovieDetailScreen(
                             Box(
                                 Modifier
                                     .width(100.dp)
-                                    .height(100.dp),
-                                contentAlignment = Alignment.Center
+                                    .height(100.dp)
+                                    .clip(RoundedCornerShape(16.dp))
+                                    .background(color = backgroundLight)
+                                    .padding(16.dp),
+                                contentAlignment = Alignment.Center,
                             ) {
                                 AsyncImage(
                                     model = "https://image.tmdb.org/t/p/original${productionCompany.logoPath}",
@@ -172,7 +176,6 @@ fun MovieDetailScreen(
                         }
                     }
                 }
-
             }
         }
     }

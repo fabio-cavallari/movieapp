@@ -48,7 +48,7 @@ fun MovieCard(movie: Movie, onMovieClick: (Movie) -> Unit = {}) {
             .clickable { onMovieClick(movie) },
         elevation = CardDefaults.cardElevation(8.dp),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.inverseOnSurface),
 
     ) {
         Row(
